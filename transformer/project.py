@@ -59,7 +59,7 @@ def project(record: dict, config: dict) -> dict:
     if not fields_cfg:
         out = dict(record)
         if not conf:
-            out.pop("overall_confidence", None)
+            out.pop("overallConfidence", None)
         if not prov:
             out.pop("provenance", None)
         return out
@@ -80,9 +80,9 @@ def project(record: dict, config: dict) -> dict:
         out[out_path] = value if not missFlag else None
 
     if conf:
-        out["_confidence"] = record.get("overall_confidence")
+        out["_confidence"] = record.get("overallConfidence")
     if prov:
-        top_level_fields = {f["path"].split(".")[0].split("[")[0] for f in fields_cfg}
+        top_level_fields = {f.get("from", f["path"]).split(".")[0].split("[")[0] for f in fields_cfg}
         out["_provenance"] = [
             pr for pr in record.get("provenance", [])
             if pr.get("field") in top_level_fields
