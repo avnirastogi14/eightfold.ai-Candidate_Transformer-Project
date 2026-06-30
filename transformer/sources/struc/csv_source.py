@@ -4,7 +4,7 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 
-from . import PartialProfile
+from .. import PartialProfile
 
 EXPECTED_COLS = {"name", "email", "phone", "current_company", "title"}
 

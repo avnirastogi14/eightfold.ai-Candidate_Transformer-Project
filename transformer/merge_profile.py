@@ -19,7 +19,8 @@ def get_values(grp: list[PartialProfile], path: str):
     for i in grp:
         for j in i.fields:
             if j.path==path:
-                out.append(j.value,j.src,j.method)
+                out.append((j.value, j.src, j.method))
+    return out
 
 def match_key_val(pP: PartialProfile)-> str:
     if pP.match_hint_email:
@@ -28,7 +29,7 @@ def match_key_val(pP: PartialProfile)-> str:
             return f"email:{nMail}"
     if pP.match_hint_name:
         return f"name:{pP.match_hint_name.strip().lower()}"
-    return f"anon:{id(p)}"
+    return f"anon:{id(pP)}"
 
 def grpCandidate(profs: list[PartialProfile])-> list[list[PartialProfile]]:
     grp: dict[str, list[PartialProfile]] =defaultdict(list)
@@ -41,7 +42,7 @@ def fetch(grp, path):
     if not x:
         return None, None
     x.sort(key=lambda i: get_priority(i[1]))
-    return x[0][0], x[0][0]
+    return x[0][0], x[0][1]
 
 # MERGE METHODS
 def MrgEmails(grp):
@@ -70,16 +71,14 @@ def MrgSkills(grp):
     d: dict[str, set[str]] = defaultdict(set)
     for val, sc, mth in get_values(grp, "skills"):
         for v in val:
-            d[N.canonicalize_skill(s)].add(sc)
-    
-    s, gvn = [], []
+            d[N.canonicalize_skill(v)].add(sc)
+    skills, gvn = [], []
     for i, scs in sorted(d.items()):
         confidence = min(0.55 + 0.2 * (len(scs) - 1), 0.98)
-        s.append(Skill(name=i, confidence=round(confidence, 2), src=sorted(scs)))
-        
-        for s in scs:
-            gvn.append(Provenance(field="skills", src=s, method="merged"))
-    return s, 
+        skills.append(Skill(name=i, confidence=round(confidence, 2), src=sorted(scs)))
+        for src in scs:
+            gvn.append(Provenance(field="skills", src=src, method="merged"))
+    return skills, gvn
 
 def MrgExp(grp):
     x, gvn = [], []
