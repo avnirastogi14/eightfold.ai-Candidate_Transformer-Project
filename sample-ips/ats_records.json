@@ -1,0 +1,15 @@
+[
+  {
+    "candidate_name": "Priya Sharma",
+    "contact": {"email_address": "priya.sharma@example.com", "phone_number": "+91 98765 43210"},
+    "work_history": [
+      {"employer": "DataWorks", "role": "ML Engineer", "from": "2022-06", "to": "present", "description": "Built recommendation models"}
+    ],
+    "skills": ["python", "pytorch", "nlp"]
+  },
+  {
+    "candidate_name": "",
+    "contact": {},
+    "work_history": "garbage-not-a-list"
+  }
+]
