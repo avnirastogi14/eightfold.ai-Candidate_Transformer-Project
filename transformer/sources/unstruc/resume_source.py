@@ -1,19 +1,22 @@
 # unstructured data source.
-# 
+
 from __future__ import annotations
 import re
 from pathlib import Path
+import pdfplumber
+from .__init__ import PartialProfile
+import docx
 
-from . import PartialProfile
+# regex for matching
+regexEmail = re.compile(r"[\w.\-+]+@[\w\-]+\.[\w.\-]+")
+regexPhone = re.compile(r"(\+?\d[\d\-\.\(\)\s]{8,}\d)")
 
-EMAIL_RE = re.compile(r"[\w.\-+]+@[\w\-]+\.[\w.\-]+")
-PHONE_RE = re.compile(r"(\+?\d[\d\-\.\(\)\s]{8,}\d)")
-SECTION_HEADERS = ["experience", "work experience", "employment", "education", "skills"]
+# std resume headers as per req
+headers = ["experience", "work experience", "employment", "education", "skills"]
 
 
 def _read_text(path: Path) -> str:
     if path.suffix.lower() == ".pdf":
-        import pdfplumber
         text = []
         with pdfplumber.open(path) as pdf:
             for page in pdf.pages:
@@ -22,7 +25,6 @@ def _read_text(path: Path) -> str:
                     text.append(t)
         return "\n".join(text)
     elif path.suffix.lower() == ".docx":
-        import docx
         d = docx.Document(str(path))
         return "\n".join(p.text for p in d.paragraphs)
     else:
@@ -36,7 +38,7 @@ def _split_sections(text: str) -> dict[str, str]:
     sections[current] = []
     for line in lines:
         stripped = line.strip().lower().rstrip(":")
-        if stripped in SECTION_HEADERS:
+        if stripped in headers:
             current = stripped
             sections[current] = []
             continue
@@ -60,22 +62,26 @@ def extract(path: str | Path) -> list[PartialProfile]:
     source_name = f"resume:{path.name}"
     p = PartialProfile(source_name=source_name, source_group="unstructured")
 
-    email_match = EMAIL_RE.search(text)
+    email_match = regexEmail.search(text)
     if email_match:
         p.add("emails", [email_match.group(0)], "regex_extract")
         p.match_hint_email = email_match.group(0)
 
-    phone_match = PHONE_RE.search(text)
+    phone_match = regexPhone.search(text)
     if phone_match:
         candidate = phone_match.group(0).strip()
         if sum(c.isdigit() for c in candidate) >= 7:
             p.add("phones", [candidate], "regex_extract")
 
-    # Heuristic: first non-empty line that isn't an email/phone is the name.
+
+    # note: heuristic :: method
+
+    # Edge Case:
+    # when line === non empty && !email || !phone ==> NAME
     for line in text.split("\n")[:5]:
         line = line.strip()
-        if line and not EMAIL_RE.search(line) and not PHONE_RE.search(line) and len(line) < 60:
-            p.add("full_name", line, "heuristic")
+        if line and not regexEmail.search(line) and not regexPhone.search(line) and len(line) < 60:
+            p.add("full_name", line, "heuristic") 
             p.match_hint_name = line
             break
 

@@ -17,7 +17,7 @@ class PartialProfile:
     match_hint_email: str | None = None
     match_hint_name: str | None = None
     source_name: str = ""
-    source_group: str = ""   # "structured" or "unstructured"
+    source_group: str = ""   # struc || unstruc
     fields: list[RawFieldValue] = field(default_factory=list)
 
     def add(self, path: str, value: Any, method: str):
