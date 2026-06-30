@@ -1,0 +1,333 @@
+{
+  "records": [
+    {
+      "CandidateId": "cand_0001",
+      "FullName": "Jane Doe",
+      "emails": [
+        "jane.doe@example.com"
+      ],
+      "phones": [
+        "+14155550199"
+      ],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [
+        {
+          "name": "AWS",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        },
+        {
+          "name": "Go",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        },
+        {
+          "name": "Kubernetes",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        },
+        {
+          "name": "PostgreSQL",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        },
+        {
+          "name": "Python",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        },
+        {
+          "name": "gRPC",
+          "confidence": 0.55,
+          "src": [
+            "resume:jane_doe.pdf"
+          ]
+        }
+      ],
+      "exp": [
+        {
+          "company": "Acme Corp",
+          "title": "Senior Backend Engineer",
+          "start": null,
+          "end": "present",
+          "summary": null
+        }
+      ],
+      "education": [],
+      "provenance": [
+        {
+          "field": "emails",
+          "src": "recruiter_csv:row2",
+          "method": "direct_field"
+        },
+        {
+          "field": "phones",
+          "src": "recruiter_csv:row2",
+          "method": "direct_field"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "resume:jane_doe.pdf",
+          "method": "merged"
+        },
+        {
+          "field": "exp",
+          "src": "recruiter_csv:row2",
+          "method": "direct_field"
+        },
+        {
+          "field": "FullName",
+          "src": "recruiter_csv:row2",
+          "method": "merged"
+        }
+      ],
+      "overallConfidence": 1.0
+    },
+    {
+      "CandidateId": "cand_0002",
+      "FullName": "John Smith",
+      "emails": [
+        "john.smith@example.com"
+      ],
+      "phones": [
+        "+12125550142"
+      ],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [],
+      "exp": [
+        {
+          "company": null,
+          "title": "Product Manager",
+          "start": null,
+          "end": "present",
+          "summary": null
+        }
+      ],
+      "education": [],
+      "provenance": [
+        {
+          "field": "emails",
+          "src": "recruiter_csv:row3",
+          "method": "direct_field"
+        },
+        {
+          "field": "phones",
+          "src": "recruiter_csv:row3",
+          "method": "direct_field"
+        },
+        {
+          "field": "exp",
+          "src": "recruiter_csv:row3",
+          "method": "direct_field"
+        },
+        {
+          "field": "FullName",
+          "src": "recruiter_csv:row3",
+          "method": "merged"
+        }
+      ],
+      "overallConfidence": 0.65
+    },
+    {
+      "CandidateId": "cand_0003",
+      "FullName": null,
+      "emails": [],
+      "phones": [],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [],
+      "exp": [],
+      "education": [],
+      "provenance": [],
+      "overallConfidence": 0.0
+    },
+    {
+      "CandidateId": "cand_0004",
+      "FullName": "Priya Sharma",
+      "emails": [
+        "priya.sharma@example.com"
+      ],
+      "phones": [],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [],
+      "exp": [
+        {
+          "company": "DataWorks",
+          "title": "ML Engineer",
+          "start": null,
+          "end": "present",
+          "summary": null
+        }
+      ],
+      "education": [],
+      "provenance": [
+        {
+          "field": "emails",
+          "src": "recruiter_csv:row5",
+          "method": "direct_field"
+        },
+        {
+          "field": "exp",
+          "src": "recruiter_csv:row5",
+          "method": "direct_field"
+        },
+        {
+          "field": "FullName",
+          "src": "recruiter_csv:row5",
+          "method": "merged"
+        }
+      ],
+      "overallConfidence": 0.55
+    },
+    {
+      "CandidateId": "cand_0005",
+      "FullName": "The Octocat",
+      "emails": [],
+      "phones": [],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [
+        {
+          "name": "CSS",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        },
+        {
+          "name": "HTML",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        },
+        {
+          "name": "Ruby",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        }
+      ],
+      "exp": [],
+      "education": [],
+      "provenance": [
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "FullName",
+          "src": "github_api:octocat",
+          "method": "merged"
+        }
+      ],
+      "overallConfidence": 0.4
+    }
+  ],
+  "errors": []
+}

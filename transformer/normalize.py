@@ -1,7 +1,6 @@
 from __future__ import annotations
 import re
 from typing import Optional
-
 import phonenumbers
 
 skillSet={
@@ -28,12 +27,12 @@ skillSet={
 def canonicalize_skill(raw: str) -> str:
     key = raw.strip().lower()
     if key in skillSet:
-        return skillSet[key] # Title-case unknown skills as a sane default rather than inventing data
+        return skillSet[key]
     return raw.strip()
 
 
 def normalize_phone(raw: str, default_region: str = "US") -> Optional[str]:
-    """Best-effort E.164 normalization. Returns None if the input can't be confidently parsed."""
+    # E.164 normalization:
     if not raw or not raw.strip():
         return None
     try:
@@ -45,24 +44,23 @@ def normalize_phone(raw: str, default_region: str = "US") -> Optional[str]:
     return None
 
 
-_EMAIL_RE = re.compile(r"^[\w.\-+]+@[\w\-]+\.[\w.\-]+$")
+regexEmail = re.compile(r"^[\w.\-+]+@[\w\-]+\.[\w.\-]+$")
 
 
 def normalize_email(raw: str) -> Optional[str]:
     if not raw:
         return None
     e = raw.strip().lower()
-    return e if _EMAIL_RE.match(e) else None
+    return e if regexEmail.match(e) else None
 
 
-_MONTHS = { m.lower(): i for i, m in enumerate(
+months = { m.lower(): i for i, m in enumerate(
         ["", "January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"]) if m}
-for k in list(_MONTHS):
-    _MONTHS[k[:3]] = _MONTHS[k]  # add 3-letter abbrevs
+for k in list(months):
+    months[k[:3]] = months[k]  # add 3-letter abbrevs
 
 
-def normalize_date(raw: str) -> Optional[str]:
-    """Normalize a wide variety of date strings to YYYY-MM. Returns None when the input can't be confidently parsed."""
+def normalize_date(raw: str) -> Optional[str]: # reqd format: YYYY-MM
     if not raw:
         return None
     raw = raw.strip()
@@ -78,8 +76,8 @@ def normalize_date(raw: str) -> Optional[str]:
         return f"{m.group(1)}-01"
 
     m = re.match(r"^([A-Za-z]+)\.?,?\s+(\d{4})$", raw)
-    if m and m.group(1).lower() in _MONTHS:
-        return f"{m.group(2)}-{_MONTHS[m.group(1).lower()]:02d}"
+    if m and m.group(1).lower() in months:
+        return f"{m.group(2)}-{months[m.group(1).lower()]:02d}"
 
     m = re.match(r"^(\d{1,2})/(\d{4})$", raw)
     if m:

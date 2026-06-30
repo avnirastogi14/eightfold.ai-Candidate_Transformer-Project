@@ -1,0 +1,72 @@
+{
+  "records": [
+    {
+      "CandidateId": "cand_0001",
+      "FullName": "The Octocat",
+      "emails": [],
+      "phones": [],
+      "location": {
+        "city": null,
+        "rgn": null,
+        "country": null
+      },
+      "links": {
+        "linkedin": null,
+        "github": null,
+        "portfolio": null,
+        "other": []
+      },
+      "headline": null,
+      "YoE": null,
+      "skills": [
+        {
+          "name": "CSS",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        },
+        {
+          "name": "HTML",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        },
+        {
+          "name": "Ruby",
+          "confidence": 0.55,
+          "src": [
+            "github_api:octocat"
+          ]
+        }
+      ],
+      "exp": [],
+      "education": [],
+      "provenance": [
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "skills",
+          "src": "github_api:octocat",
+          "method": "merged"
+        },
+        {
+          "field": "FullName",
+          "src": "github_api:octocat",
+          "method": "merged"
+        }
+      ],
+      "overallConfidence": 0.4
+    }
+  ],
+  "errors": []
+}
