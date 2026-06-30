@@ -4,7 +4,7 @@ import urllib.request
 import json
 from urllib.error import URLError, HTTPError
 
-from .__init__ import PartialProfile
+from .. import PartialProfile
 
 uNameRegex = re.compile(r"github\.com/([A-Za-z0-9\-]+)/?$")
 

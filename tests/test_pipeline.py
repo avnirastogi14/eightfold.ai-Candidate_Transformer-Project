@@ -52,7 +52,6 @@ def test_default_pipeline_end_to_end():
 
 
 def test_cross_source_merge_by_email():
-    # Priya Sharma appears in BOTH the CSV and the ATS JSON with the same email -- they must merge into ONE record, not two.
     inputs = [str(SAMPLES / "recruiters.csv"), str(SAMPLES / "ats_records.json")]
     result = run(inputs, {})
     priya_records = [r for r in result["records"] if r["full_name"] == "Priya Sharma"]
@@ -70,8 +69,8 @@ def test_custom_config_projection():
             {"path": "primary_email", "from": "emails[0]", "type": "string"},
             {"path": "phone", "from": "phones[0]", "normalize": "E164"},
         ],
-        "include_confidence": True,
-        "include_provenance": False,
+        "conf": True,
+        "prov": False,
         "missTrue": "null",
     }
     result = run([str(SAMPLES / "recruiters.csv")], config)
@@ -85,8 +84,8 @@ def test_on_missing_error_surfaces_validation_problem():
     config = {
         "fields": [{"path": "full_name", "required": True}],
         "missTrue": "error",
-        "include_confidence": False,
-        "include_provenance": False,
+        "conf": False,
+        "prov": False,
     }
     result = run([str(SAMPLES / "ats_records.json")], config)
     assert len(result["errors"]) >= 1
@@ -100,8 +99,6 @@ def test_missing_file_degrades_gracefully(): # expected behaviour is NO CRASH
 
 def test_malformed_csv_row_does_not_crash():
     result = run([str(SAMPLES / "recruiters.csv")], {})
-    # the blank/garbage row must produce a record with no invented data,
-    # not crash and not silently get a full_name from nowhere
     blanks = [r for r in result["records"] if r["full_name"] is None]
     assert len(blanks) >= 1
     assert blanks[0]["emails"] == [] or blanks[0]["emails"] is None

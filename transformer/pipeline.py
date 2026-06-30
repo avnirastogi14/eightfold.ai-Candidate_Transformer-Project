@@ -3,8 +3,10 @@ import json
 import dataclasses
 from pathlib import Path
 from typing import Any
-from .sources import csv_source, ats_json_source, resume_source, github_source, PartialProfile
-from . import merge as M
+from .sources import PartialProfile
+from .sources.struc import csv_source, ats_json_source
+from .sources.unstruc import resume_source, github_source
+from . import merge_profile as M
 from . import confidence as C
 from . import project as P
 from .schema import validate_against_config
@@ -54,7 +56,7 @@ def convert(obj: Any) -> Any:
 def run(inputs: list[str], config: dict | None = None) -> dict: #pipeline execution
     config = config or {}
     raw_profiles = getAll(inputs)
-    merged = M.merge_all(raw_profiles)
+    merged = M.MrgAll(raw_profiles)
     merged = C.apply(merged)
 
     records = [convert(m) for m in merged]

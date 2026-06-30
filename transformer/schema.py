@@ -63,3 +63,29 @@ class CanonicalProfile:
 
     def to_dict(self)->dict:
         return asdict(self)
+    
+
+class SchemaValidationError(Exception):
+    pass
+
+def validate_against_config(record: dict, config: dict) -> list[str]:
+    problems: list[str] = []
+    fields_cfg = config.get("fields") or []
+    if not fields_cfg:
+        return problems
+    declared_paths = {f["path"] for f in fields_cfg}
+
+    for f in fields_cfg:
+        path = f["path"]
+        required = f.get("required", False)
+        present = path in record
+        if required and (not present or record.get(path) in (None, [], "")):
+            if config.get("on_missing", "null") == "error":
+                problems.append(f"required field '{path}' missing/empty")
+
+    meta_keys = {"_provenance", "_confidence"}
+    for key in record.keys():
+        if key not in declared_paths and key not in meta_keys:
+            problems.append(f"unexpected field '{key}' not in config")
+
+    return problems

@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 import pdfplumber
-from .__init__ import PartialProfile
+from .. import PartialProfile
 import docx
 
 # regex for matching
