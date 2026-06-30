@@ -45,6 +45,7 @@ class Links:
     portfolio: Optional[str] = None
     other: list[str]=field(default_factory=list)
 
+@dataclass
 class CanonicalProfile:
     CandidateId: str
     FullName: Optional[str] = None
