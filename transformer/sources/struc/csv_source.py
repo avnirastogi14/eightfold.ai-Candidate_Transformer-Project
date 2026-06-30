@@ -8,7 +8,6 @@ from . import PartialProfile
 
 EXPECTED_COLS = {"name", "email", "phone", "current_company", "title"}
 
-
 def extract(path: str | Path) -> list[PartialProfile]:
     path = Path(path)
     profiles: list[PartialProfile] = []
@@ -34,6 +33,7 @@ def extract(path: str | Path) -> list[PartialProfile]:
                     source_name=source_name,
                     source_group="structured",
                 )
+                
                 if row.get("name"):
                     p.add("full_name", row["name"], "direct_field")
                 if row.get("email"):
@@ -43,8 +43,8 @@ def extract(path: str | Path) -> list[PartialProfile]:
                 if row.get("current_company") or row.get("title"):
                     p.add("experience", [{"company": row.get("current_company") or None, "title": row.get("title") or None, "start": None, "end": "present", "summary": None, }], "direct_field")
                 profiles.append(p)
+    
     except (csv.Error, UnicodeDecodeError, OSError):
-        # uncompatible file to result "No Result" instead of wrong / crashed system
-        return []
+        return [] # uncompatible file to result "No Result" instead of wrong / crashed system
 
     return profiles
